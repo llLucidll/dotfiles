@@ -23,12 +23,12 @@ A fully-featured Neovim setup for macOS with LSP, autocompletion, fuzzy finding,
 # 1. Install Homebrew (if you don't have it)
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
-# 2. Clone this repo
-git clone https://github.com/alvina-yang/NeoVim.git ~/.config/nvim
+# 2. Clone the dotfiles repo
+git clone https://github.com/llLucidll/dotfiles.git ~/dotfiles
 
-# 3. Run the setup scripts
-~/.config/nvim/scripts/setup-neovim.sh
-~/.config/nvim/scripts/setup-terminal.sh
+# 3. Run the setup scripts (they'll symlink ~/dotfiles/nvim → ~/.config/nvim)
+~/dotfiles/nvim/scripts/setup-neovim.sh
+~/dotfiles/nvim/scripts/setup-terminal.sh
 ```
 
 If you prefer to set things up manually, follow the steps below.

@@ -19,19 +19,33 @@ brew install neovim ripgrep fd gcc node npm lazygit
 echo "==> Installing JetBrains Mono Nerd Font..."
 brew install --cask font-jetbrains-mono-nerd-font
 
-# Backup existing config
-if [ -d ~/.config/nvim ] && [ ! -f ~/.config/nvim/init.lua ]; then
-  echo "==> Backing up existing Neovim config..."
-  mv ~/.config/nvim ~/.config/nvim.bak 2>/dev/null || true
+# Locate the dotfiles repo (the script lives at <repo>/nvim/scripts/setup-neovim.sh)
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+DOTFILES_DIR="$(cd "$SCRIPT_DIR/../.." && pwd)"
+
+# If we weren't run from a cloned repo, clone it to ~/dotfiles
+if [ ! -f "$DOTFILES_DIR/nvim/init.lua" ]; then
+  DOTFILES_DIR="$HOME/dotfiles"
+  if [ ! -d "$DOTFILES_DIR" ]; then
+    echo "==> Cloning dotfiles to $DOTFILES_DIR..."
+    git clone https://github.com/llLucidll/dotfiles.git "$DOTFILES_DIR"
+  fi
+fi
+
+# Back up an existing ~/.config/nvim if it isn't already our symlink
+mkdir -p ~/.config
+if [ -e ~/.config/nvim ] && [ ! -L ~/.config/nvim ]; then
+  echo "==> Backing up existing Neovim config to ~/.config/nvim.bak..."
+  mv ~/.config/nvim ~/.config/nvim.bak
   mv ~/.local/share/nvim ~/.local/share/nvim.bak 2>/dev/null || true
   mv ~/.local/state/nvim ~/.local/state/nvim.bak 2>/dev/null || true
   mv ~/.cache/nvim ~/.cache/nvim.bak 2>/dev/null || true
 fi
 
-# Clone config if not already present
-if [ ! -f ~/.config/nvim/init.lua ]; then
-  echo "==> Cloning Neovim configuration..."
-  git clone https://github.com/alvina-yang/NeoVim.git ~/.config/nvim
+# Symlink the repo's nvim/ into ~/.config/nvim
+if [ ! -e ~/.config/nvim ]; then
+  echo "==> Linking $DOTFILES_DIR/nvim → ~/.config/nvim"
+  ln -s "$DOTFILES_DIR/nvim" ~/.config/nvim
 fi
 
 # Install plugins headlessly
