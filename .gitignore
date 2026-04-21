@@ -1,0 +1,4 @@
+nvim/lazy-lock.json
+nvim/plugin/
+nvim/spell/
+.DS_Store
