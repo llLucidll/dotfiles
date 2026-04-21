@@ -12,27 +12,33 @@ dotfiles/
 
 ## Install
 
-Clone and symlink (backs up any existing configs first):
-
 ```bash
-git clone git@github.com:llLucidll/dotfiles.git ~/dotfiles
-
-# nvim
-[ -e ~/.config/nvim ] && mv ~/.config/nvim ~/.config/nvim.bak
-ln -s ~/dotfiles/nvim ~/.config/nvim
-
-# ghostty
-GHOSTTY_DIR="$HOME/Library/Application Support/com.mitchellh.ghostty"
-[ -e "$GHOSTTY_DIR/config" ] && mv "$GHOSTTY_DIR/config" "$GHOSTTY_DIR/config.bak"
-mkdir -p "$GHOSTTY_DIR"
-ln -s ~/dotfiles/ghostty/config "$GHOSTTY_DIR/config"
+git clone https://github.com/llLucidll/dotfiles.git ~/dotfiles
 ```
 
-Then run the nvim setup script to install dependencies:
+### macOS
 
 ```bash
+# Installs nvim + deps, backs up any existing ~/.config/nvim, and symlinks the repo copy in.
 ~/dotfiles/nvim/scripts/setup-neovim.sh
+
+# Installs ghostty, nerd font, shell tools, and writes terminal configs.
+~/dotfiles/nvim/scripts/setup-terminal.sh
+
+# Symlink the ghostty config (one-time).
+GHOSTTY_DIR="$HOME/Library/Application Support/com.mitchellh.ghostty"
+mkdir -p "$GHOSTTY_DIR"
+[ -e "$GHOSTTY_DIR/config" ] && [ ! -L "$GHOSTTY_DIR/config" ] && mv "$GHOSTTY_DIR/config" "$GHOSTTY_DIR/config.bak"
+ln -sfn ~/dotfiles/ghostty/config "$GHOSTTY_DIR/config"
 ```
+
+### Linux (Debian/Ubuntu)
+
+```bash
+~/dotfiles/nvim/scripts/setup-linux.sh
+```
+
+This installs nvim (via the `neovim-ppa/unstable` PPA), ripgrep, fd, nodejs, lazygit, and the JetBrains Mono Nerd Font, then symlinks both configs into `~/.config/nvim` and `~/.config/ghostty/config`. Ghostty itself isn't installed — see [ghostty.org](https://ghostty.org) for distro-specific install options. For non-apt distros, install the equivalent packages manually; the symlink steps in the script still apply.
 
 See [`nvim/README.md`](nvim/README.md) for the full Neovim setup notes.
 
