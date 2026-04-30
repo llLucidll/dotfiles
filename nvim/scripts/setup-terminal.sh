@@ -85,14 +85,20 @@ else
   echo "  Ghostty already configured, skipping."
 fi
 
-# Configure Starship prompt (Catppuccin powerline)
+# Configure Starship prompt (symlink repo config)
 echo "==> Configuring Starship prompt..."
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+DOTFILES_DIR="$(cd "$SCRIPT_DIR/../.." && pwd)"
 mkdir -p ~/.config
-if [ ! -f ~/.config/starship.toml ] || ! grep -q "catppuccin" ~/.config/starship.toml; then
-  starship preset catppuccin-powerline -o ~/.config/starship.toml
-  echo "  Starship config written."
+if [ -e ~/.config/starship.toml ] && [ ! -L ~/.config/starship.toml ]; then
+  mv ~/.config/starship.toml ~/.config/starship.toml.bak
+  echo "  Backed up existing config to ~/.config/starship.toml.bak."
+fi
+if [ ! -e ~/.config/starship.toml ]; then
+  ln -s "$DOTFILES_DIR/starship/starship.toml" ~/.config/starship.toml
+  echo "  Starship config linked."
 else
-  echo "  Starship already configured, skipping."
+  echo "  Starship already linked, skipping."
 fi
 
 # Configure bat

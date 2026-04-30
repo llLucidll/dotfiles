@@ -1,13 +1,15 @@
 # dotfiles
 
-Personal config for Neovim and Ghostty on macOS.
+Personal config for Neovim, Ghostty, and Starship on macOS.
 
 ## Layout
 
 ```
 dotfiles/
-├── nvim/      → ~/.config/nvim
-└── ghostty/   → ~/Library/Application Support/com.mitchellh.ghostty
+├── nvim/                  → ~/.config/nvim
+├── ghostty/               → ~/Library/Application Support/com.mitchellh.ghostty (macOS)
+│                            ~/.config/ghostty (Linux)
+└── starship/starship.toml → ~/.config/starship.toml
 ```
 
 ## Install
@@ -38,7 +40,7 @@ ln -sfn ~/dotfiles/ghostty/config "$GHOSTTY_DIR/config"
 ~/dotfiles/nvim/scripts/setup-linux.sh
 ```
 
-This installs nvim (via the `neovim-ppa/unstable` PPA), ripgrep, fd, nodejs, lazygit, and the JetBrains Mono Nerd Font, then symlinks both configs into `~/.config/nvim` and `~/.config/ghostty/config`. Ghostty itself isn't installed — see [ghostty.org](https://ghostty.org) for distro-specific install options. For non-apt distros, install the equivalent packages manually; the symlink steps in the script still apply.
+This installs nvim (via the `neovim-ppa/unstable` PPA), ripgrep, fd, nodejs, lazygit, and the JetBrains Mono Nerd Font, then symlinks the configs into `~/.config/nvim`, `~/.config/ghostty/config`, and `~/.config/starship.toml`. Ghostty and Starship themselves aren't installed — see [ghostty.org](https://ghostty.org) and [starship.rs](https://starship.rs) for distro-specific install options. For non-apt distros, install the equivalent packages manually; the symlink steps in the script still apply.
 
 See [`nvim/README.md`](nvim/README.md) for the full Neovim setup notes.
 

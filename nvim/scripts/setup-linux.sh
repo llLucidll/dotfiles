@@ -103,6 +103,15 @@ if [ ! -e ~/.config/ghostty/config ]; then
   ln -s "$DOTFILES_DIR/ghostty/config" ~/.config/ghostty/config
 fi
 
+# starship: ~/.config/starship.toml → dotfiles/starship/starship.toml
+if [ -e ~/.config/starship.toml ] && [ ! -L ~/.config/starship.toml ]; then
+  mv ~/.config/starship.toml ~/.config/starship.toml.bak
+fi
+if [ ! -e ~/.config/starship.toml ]; then
+  echo "==> Linking $DOTFILES_DIR/starship/starship.toml → ~/.config/starship.toml"
+  ln -s "$DOTFILES_DIR/starship/starship.toml" ~/.config/starship.toml
+fi
+
 # ---------------------------------------------------------------------------
 # Install plugins headlessly
 # ---------------------------------------------------------------------------
