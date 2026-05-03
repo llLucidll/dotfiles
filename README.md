@@ -1,6 +1,6 @@
 # dotfiles
 
-Personal config for Neovim, Ghostty, and Starship on macOS.
+Personal config for Neovim, Ghostty, Starship, and Pi on macOS.
 
 ## Layout
 
@@ -9,7 +9,8 @@ dotfiles/
 ├── nvim/                  → ~/.config/nvim
 ├── ghostty/               → ~/Library/Application Support/com.mitchellh.ghostty (macOS)
 │                            ~/.config/ghostty (Linux)
-└── starship/starship.toml → ~/.config/starship.toml
+├── starship/starship.toml → ~/.config/starship.toml
+└── pi-config/             → ~/.pi/agent Lucid Mode setup kit
 ```
 
 ## Install
@@ -32,6 +33,9 @@ GHOSTTY_DIR="$HOME/Library/Application Support/com.mitchellh.ghostty"
 mkdir -p "$GHOSTTY_DIR"
 [ -e "$GHOSTTY_DIR/config" ] && [ ! -L "$GHOSTTY_DIR/config" ] && mv "$GHOSTTY_DIR/config" "$GHOSTTY_DIR/config.bak"
 ln -sfn ~/dotfiles/ghostty/config "$GHOSTTY_DIR/config"
+
+# Install the Lucid Mode Pi config.
+~/dotfiles/pi-config/install.sh
 ```
 
 ### Linux (Debian/Ubuntu)
